@@ -1,0 +1,86 @@
+Architecture Overview
+
+This document summarizes the architecture of the **End-to-End Supply Chain Data Platform on Snowflake**.
+
+Purpose
+
+The platform is designed to ingest supply chain data from multiple source entities, transform it through a medallion architecture, enforce data quality, model it for business analytics, and expose both KPI reporting and AI-powered insights using Snowflake-native capabilities.
+
+Architecture Summary
+
+The platform follows a three-layer medallion architecture:
+
+- **Raw Layer** — exact source replica for auditability and CDC
+- **Stage Layer** — denormalized transformations, joins, and business rules
+- **Curated Layer** — star schema, semantic views, AI views, and RAG access
+
+Core Flow
+
+Amazon S3 CSV Files
+  -> Snowpipe AUTO_INGEST via SQS
+  -> DATA_RAW.SUPPLY_CHAIN
+  -> 13 Streams
+  -> Task DAG + Stored Procedures
+  -> DATA_STAGE.SUPPLY_CHAIN
+  -> Data Quality Framework
+  -> DATA_CURATED.SUPPLY_CHAIN
+  -> Semantic Views / Cortex Analyst
+  -> AI Views / Cortex Search / SP_RAG_QUERY
+
+Layers
+
+Raw Layer
+
+**Database/Schema:** `DATA_RAW.SUPPLY_CHAIN`
+
+Purpose:
+- Hold 13 source tables as an exact source replica
+- Preserve auditability
+- Feed CDC using Streams
+
+Key components:
+- 13 tables
+- 13 Snowpipe objects
+- 13 Streams
+
+Stage Layer
+
+**Database/Schema:** `DATA_STAGE.SUPPLY_CHAIN`
+
+Purpose:
+- Join raw entities into denormalized business-ready staging datasets
+- Apply business rules and transformation logic
+- Run data quality validation before publishing downstream models
+
+Key components:
+- 5 denormalized stage tables
+- 5 stored procedures
+- Task DAG with root scheduler and child refresh tasks
+
+Curated Layer
+
+**Database/Schema:** `DATA_CURATED.SUPPLY_CHAIN`
+
+Purpose:
+- Publish analytics-ready dimensional models
+- Expose governed semantic analytics
+- Support AI views and RAG-powered business access
+
+Key components:
+- 4 dimensions
+- 3 facts
+- 4 semantic views
+- 5 AI views
+- Knowledge base + Cortex Search + `SP_RAG_QUERY`
+
+Major Services and Tools
+
+- **Landing/Ingestion:** Amazon S3, SQS, Snowpipe
+- **CDC and orchestration:** Streams, Tasks, `SYSTEM$STREAM_HAS_DATA`
+- **Transformation layer:** SQL stored procedures
+- **Analytics layer:** Star schema, Semantic Views, Cortex Analyst
+- **AI layer:** `AI_COMPLETE`, `AI_CLASSIFY`, Cortex Search, `SP_RAG_QUERY`
+
+Why This Design Works
+
+This architecture keeps ingestion, transformation, analytics, and AI concerns separated while still staying fully inside Snowflake. It supports auditability in Raw, transformation flexibility in Stage, business consumption in Curated, and advanced analytics through the semantic and AI layers.
