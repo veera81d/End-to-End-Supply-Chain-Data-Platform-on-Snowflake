@@ -15,7 +15,7 @@ The solution is designed to support governed analytics, self-service KPI reporti
 Architecture Flow
 
 ```text
-Amazon S3 CSV files
+   -> Amazon S3 CSV files
    -> Snowpipe AUTOINGEST via SQS
    -> DATARAW.SUPPLYCHAIN
    -> Streams + Task DAG
