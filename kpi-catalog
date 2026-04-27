@@ -1,8 +1,8 @@
-# KPI Catalog
+KPI Catalog
 
 This document lists representative KPIs exposed by the curated and semantic layers of the **End-to-End Supply Chain Data Platform on Snowflake**.
 
-## KPI Domains
+KPI Domains
 
 The platform supports KPI reporting across:
 
@@ -11,73 +11,73 @@ The platform supports KPI reporting across:
 - Inventory health
 - Operational planning
 
-## Sales KPIs
+Sales KPIs
 
-### Total Revenue
+Total Revenue
 - **Definition:** Sum of net revenue from valid order transactions
 - **Source:** `FCT_ORDERS`
 - **Business use:** Revenue tracking by business line, product, or customer
 
-### Monthly Revenue Trend
+Monthly Revenue Trend
 - **Definition:** Revenue aggregated by month using `DIM_DATE`
 - **Source:** `FCT_ORDERS` + `DIM_DATE`
 - **Business use:** Trend analysis and leadership reporting
 
-### Top Customers by Revenue
+Top Customers by Revenue
 - **Definition:** Ranked customers based on revenue contribution
 - **Source:** `FCT_ORDERS` + `DIM_CUSTOMER`
 - **Business use:** Customer concentration and account prioritization
 
-### Order Size Tier
+Order Size Tier
 - **Definition:** Classification of orders into SMALL, MEDIUM, LARGE, or ENTERPRISE
 - **Source:** `FCT_ORDERS`
 - **Business use:** Sales segmentation and order-pattern analysis
 
-## Logistics KPIs
+Logistics KPIs
 
-### On-Time Delivery Rate
+On-Time Delivery Rate
 - **Definition:** Percentage of shipments delivered on time
 - **Source:** `FCT_SHIPMENTS`
 - **Business use:** Service-level performance tracking
 
-### Delay Days
+Delay Days
 - **Definition:** Actual transit days minus expected transit days
 - **Source:** `FCT_SHIPMENTS`
 - **Business use:** Delay monitoring and root-cause analysis
 
-### Shipping Speed Tier
+Shipping Speed Tier
 - **Definition:** Shipment classification into EXPRESS, STANDARD, ECONOMY, or SLOW
 - **Source:** `FCT_SHIPMENTS`
 - **Business use:** Logistics mix and service profile analysis
 
-### Cost per Transit Day
+Cost per Transit Day
 - **Definition:** Shipping efficiency metric combining cost and duration
 - **Source:** `FCT_SHIPMENTS`
 - **Business use:** Cost-performance optimization
 
-## Inventory KPIs
+Inventory KPIs
 
-### Inventory Health Status
+Inventory Health Status
 - **Definition:** Classification of stock into OUT_OF_STOCK, CRITICAL, LOW, or HEALTHY
 - **Source:** `FCT_INVENTORY`
 - **Business use:** Inventory planning and shortage management
 
-### Reorder Need
+Reorder Need
 - **Definition:** Flag indicating whether distributor inventory requires replenishment
 - **Source:** Distributor inventory stage outputs and curated inventory model
 - **Business use:** Replenishment planning
 
-### Critical Stock Count
+Critical Stock Count
 - **Definition:** Count of items below safety stock threshold
 - **Source:** `FCT_INVENTORY`
 - **Business use:** Inventory risk management
 
-### Inventory Value
+Inventory Value
 - **Definition:** Monetary value of inventory on hand
 - **Source:** Stage inventory transformations and curated inventory fact
 - **Business use:** Working capital and asset visibility
 
-## Example Business Questions
+Example Business Questions
 
 The semantic layer is designed to answer questions such as:
 
@@ -87,7 +87,7 @@ The semantic layer is designed to answer questions such as:
 - What is the on-time delivery rate?
 - Which inventory items are at critical stock levels?
 
-## Semantic Exposure
+Semantic Exposure
 
 These KPIs are exposed through semantic views such as:
 
