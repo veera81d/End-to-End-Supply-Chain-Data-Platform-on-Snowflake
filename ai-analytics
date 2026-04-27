@@ -1,0 +1,59 @@
+AI Analytics
+
+This document describes the AI analytics layer of the **End-to-End Supply Chain Data Platform on Snowflake**.
+
+Purpose
+
+The AI layer extends traditional KPI reporting by generating summaries, classifications, risk indicators, and conversational responses directly from curated supply chain data.
+
+AI View Layer
+
+The platform defines five AI-enriched analytical views built with Snowflake Cortex functions.
+
+`V_AI_EXECUTIVE_BRIEFING`
+- **Function:** `AI_COMPLETE` using `llama3.1-8b`
+- **Purpose:** Generates a concise executive briefing from KPI outputs
+- **Business value:** Helps leadership quickly understand performance signals
+
+`V_AI_CUSTOMER_SEGMENTS`
+- **Function:** `AI_CLASSIFY`
+- **Purpose:** Classifies customers into Strategic, Growth, or Transactional segments
+- **Business value:** Supports account prioritization and planning
+
+`V_AI_ORDER_RISK`
+- **Function:** `AI_CLASSIFY`
+- **Purpose:** Labels orders by cancellation risk as High, Medium, or Low
+- **Business value:** Supports proactive commercial and operational follow-up
+
+`V_AI_RESTOCK_RECOMMENDATIONS`
+- **Function:** `AI_COMPLETE` using `llama3.1-8b`
+- **Purpose:** Produces short recommendations for CRITICAL and LOW stock items
+- **Business value:** Assists inventory planners with next-best actions
+
+`V_AI_DELAY_ANALYSIS`
+- **Function:** `AI_COMPLETE` using `llama3.1-8b`
+- **Purpose:** Generates root-cause hypotheses and mitigation ideas for delayed shipments
+- **Business value:** Helps operations teams move from reporting to action
+
+RAG Pipeline
+
+The platform also includes a Retrieval-Augmented Generation layer for conversational access.
+
+Step 1: Knowledge Base Construction
+- 150 AI-enriched knowledge entries
+- 50 products
+- 30 facilities
+- 70 customers
+
+Step 2: Search Layer
+- **Service:** `SUPPLY_CHAIN_SEARCH`
+- **Purpose:** Semantic retrieval over the knowledge base
+- **Indexed attributes:** `ENTITY_TYPE`, `ENTITY_NAME`, `CATEGORY`, `BUSINESS_LINE`, `METADATA`
+
+Step 3: Query Procedure
+- **Procedure:** `SP_RAG_QUERY`
+- **Flow:** accept question -> retrieve top 5 relevant entries -> pass context to `AI_COMPLETE` -> return short answer
+
+Why the AI Layer Matters
+
+This layer turns the platform from a reporting system into an insight system. Users can move from raw KPI visibility to narrative summaries, risk classification, operational recommendations, and conversational retrieval without leaving the Snowflake ecosystem.
