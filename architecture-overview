@@ -16,16 +16,15 @@ The platform follows a three-layer medallion architecture:
 
 Core Flow
 
-Amazon S3 CSV Files
-  -> Snowpipe AUTO_INGEST via SQS
-  -> DATA_RAW.SUPPLY_CHAIN
-  -> 13 Streams
-  -> Task DAG + Stored Procedures
-  -> DATA_STAGE.SUPPLY_CHAIN
-  -> Data Quality Framework
-  -> DATA_CURATED.SUPPLY_CHAIN
-  -> Semantic Views / Cortex Analyst
-  -> AI Views / Cortex Search / SP_RAG_QUERY
+   -> Amazon S3 CSV files
+   -> Snowpipe AUTOINGEST via SQS
+   -> DATARAW.SUPPLYCHAIN
+   -> Streams + Task DAG
+   -> DATASTAGE.SUPPLYCHAIN
+   -> Data Quality Framework
+   -> DATACURATED.SUPPLYCHAIN
+   -> Semantic Views / Cortex Analyst
+   -> Cortex AI Views / RAG Pipeline
 
 Layers
 
